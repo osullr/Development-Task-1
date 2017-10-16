@@ -21,7 +21,7 @@ public class LowestCommonAncestorTest {
 	public void testTwoNodes() {
 		LowestCommonAncestor twoNodes = new LowestCommonAncestor();
 		twoNodes.root = new Node(1);
-		twoNodes.root = new Node(2);
+		twoNodes.root.left = new Node(2);
 		assertEquals("The lowest common ancestor of a tree with two nodes", 1, twoNodes.LowestCommonAncestor(1, 2));
 	}
 
