@@ -45,7 +45,7 @@ public class LowestCommonAncestorTest {
 		fifteenNodes.root.right.right.right = new Node(15);
 
 		assertEquals("The lowest common ancestor of a tree with 15 nodes", 1, fifteenNodes.LowestCommonAncestor(1, 2));
-		assertEquals("The lowest common ancestor of a tree with 15 nodes", 2, fifteenNodes.LowestCommonAncestor(2, 3));
+		assertEquals("The lowest common ancestor of a tree with 15 nodes", 1, fifteenNodes.LowestCommonAncestor(2, 3));
 		assertEquals("The lowest common ancestor of a tree with 15 nodes", 2, fifteenNodes.LowestCommonAncestor(2, 4));
 		assertEquals("The lowest common ancestor of a tree with 15 nodes", 3, fifteenNodes.LowestCommonAncestor(3, 6));
 		assertEquals("The lowest common ancestor of a tree with 15 nodes", 2, fifteenNodes.LowestCommonAncestor(4, 5));
