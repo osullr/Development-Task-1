@@ -22,7 +22,7 @@ public class DAG {
 	private List<Integer> path1 = new ArrayList<>();
 	private List<Integer> path2 = new ArrayList<>();
 
-	int LowestCommonAncestor(int node1, int node2) {
+	int LowestCommonAncestorBinaryTree(int node1, int node2) {
 		path1.clear();
 		path2.clear();
 		return findLowestCommonAncestorBinaryTree(root, node1, node2);
@@ -94,35 +94,11 @@ public class DAG {
 		return false;
 	}
 
-	private boolean graphAcyclic(ArrayList<Node> graph) {
-		if (graph == null) {
-			return true;
-		}
-		for (int i = 0; i < graph.size(); i++) {
-			boolean notAcyclic = false;
-			ArrayList<Node> checked = new ArrayList<Node>();
-			Node index = graph.get(i);
-			ArrayList<Node> listToCompare = new ArrayList<Node>();
-			notAcyclic = isGraphAcyclic(graph, listToCompare, checked, notAcyclic, index);
-			if (notAcyclic) {
-				return false;
+	public static void addParenNodesToNode(int location, Node node1, Node node2) {
+		for (int i = 0; i < node1.parentNodes.size(); i++) {
+			if (!node2.parentNodes.contains(node1.parentNodes.get(i))) {
+				node2.parentNodes.add(location, node1.parentNodes.get(i));
 			}
 		}
-		return false;
 	}
-
-	private boolean isGraphAcyclic(ArrayList<Node> graph, ArrayList<Node> listToCompare, ArrayList<Node> checked,
-			boolean notAcyclic, Node index) {
-		for (int i = 0; i < index.parentNodes.size(); i++) {
-			Node currentNode = (Node) index.parentNodes.get(i);
-			if (!checked.contains(currentNode))
-				isGraphAcyclic(graph, listToCompare, checked, notAcyclic, index);
-			else if (listToCompare.contains(currentNode)) {
-				return true;
-			}
-		}
-		listToCompare.remove(index);
-		return notAcyclic;
-	}
-
 }
