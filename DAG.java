@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 class Node<T> {
 	int data;
-	public ArrayList<Node<T>> childNodes;
+	private ArrayList<Node<T>> childNodes;
 	int child[];
 
 	Node(int value) {
@@ -26,14 +26,41 @@ class Node<T> {
 		}
 
 		private boolean notNull(ArrayList<Node> graph, Node node1, Node node2) {
-			// TODO Auto-generated method stub
-			return false;
+			if (graph == null) {
+				return false;
+			}
+			if (node1 == null || node2 == null) {
+				return false;
+			}
+			if (!graph.contains(node1) || !graph.contains(node2)) {
+				return false;
+			}
+			return true;
 		}
 
 		private boolean graphAcyclic(ArrayList<Node> graph) {
-			// TODO Auto-generated method stub
+			if (graph == null) {
+				return true;
+			}
+			for (int i = 0; i < graph.size(); i++) {
+				boolean notAcyclic = false;
+				ArrayList<Node> checked = new ArrayList<Node>();
+				Node index = graph.get(i);
+				ArrayList<Node> listToCompare = new ArrayList<Node>();
+				notAcyclic = isGraphAcyclic(graph, listToCompare, checked, notAcyclic, index);
+				if (notAcyclic) {
+					return false;
+				}
+			}
 			return false;
 
 		}
+
+		private boolean isGraphAcyclic(ArrayList<Node> graph, ArrayList<Node> listToCompare, ArrayList<Node> checked,
+				boolean notAcyclic, Node index) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
 	}
 }
