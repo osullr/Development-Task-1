@@ -53,13 +53,20 @@ class Node<T> {
 				}
 			}
 			return false;
-
 		}
 
 		private boolean isGraphAcyclic(ArrayList<Node> graph, ArrayList<Node> listToCompare, ArrayList<Node> checked,
 				boolean notAcyclic, Node index) {
-			// TODO Auto-generated method stub
-			return false;
+			for (int i = 0; i < index.childNodes.size(); i++) {
+				Node currentNode = (Node) index.childNodes.get(i);
+				if (!checked.contains(currentNode))
+					isGraphAcyclic(graph, listToCompare, checked, notAcyclic, index);
+				else if (listToCompare.contains(currentNode)) {
+					return true;
+				}
+			}
+			listToCompare.remove(index);
+			return notAcyclic;
 		}
 
 	}
