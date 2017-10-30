@@ -51,6 +51,26 @@ public class DAG {
 
 	}
 
+	int LowestCommonAncestorDAG(Node node1, Node node2) {
+		return findLowestCommonAncestorDAG(root, node1, node2);
+	}
+
+	private int findLowestCommonAncestorDAG(Node root2, Node node1, Node node2) {
+		if (node1.parentNodes != null && node2.parentNodes != null) {
+			for (int i = 0; i < node2.parentNodes.size(); i++) {
+				for (int j = 0; j < node1.parentNodes.size(); j++) {
+					if (node2.parentNodes.get(i) == node1.parentNodes.get(j)) {
+						return node2.parentNodes.get(i).data;
+					}
+				}
+			}
+		} else {
+			return root.data;
+		}
+		return 0;
+
+	}
+
 	private boolean findPathBinaryTree(Node root, int n, List<Integer> path) {
 		if (root == null) {
 			return false;
@@ -72,29 +92,6 @@ public class DAG {
 		path.remove(path.size() - 1);
 
 		return false;
-	}
-
-	public Node getLCA(ArrayList<Node> graph, Node node1, Node node2) {
-
-		if (!notNull(graph, node1, node2) && !graphAcyclic(graph)) {
-			return null;
-		} else {
-
-		}
-		return null;
-	}
-
-	private boolean notNull(ArrayList<Node> graph, Node node1, Node node2) {
-		if (graph == null) {
-			return false;
-		}
-		if (node1 == null || node2 == null) {
-			return false;
-		}
-		if (!graph.contains(node1) || !graph.contains(node2)) {
-			return false;
-		}
-		return true;
 	}
 
 	private boolean graphAcyclic(ArrayList<Node> graph) {
