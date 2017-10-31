@@ -35,27 +35,34 @@ public class DAGTest {
 		node6.parentNodes = new ArrayList<Node>();
 		node7.parentNodes = new ArrayList<Node>();
 
-		node2.parentNodes.add(root);
 		node2.parentNodes.add(node2);
+		node2.parentNodes.add(root);
 		node3.parentNodes.add(node3);
 		node4.parentNodes.add(node4);
 		node5.parentNodes.add(node5);
 		node6.parentNodes.add(node6);
 		node7.parentNodes.add(node7);
 
-		DAG.addParentNodesToNode(node3.parentNodes.size(), node2, node3);
-		DAG.addParentNodesToNode(node4.parentNodes.size(), node3, node4);
-		DAG.addParentNodesToNode(node5.parentNodes.size(), node2, node5);
-		DAG.addParentNodesToNode(node6.parentNodes.size(), node5, node6);
-		DAG.addParentNodesToNode(node7.parentNodes.size(), node6, node7);
-		DAG.addParentNodesToNode(1, node4, node7);
+		DAG.addParentNodesToNode(node2, node3);
+		DAG.addParentNodesToNode(node3, node4);
+		DAG.addParentNodesToNode(node2, node5);
+		DAG.addParentNodesToNode(node5, node6);
+		DAG.addParentNodesToNode(node6, node7);
+		DAG.addParentNodesToNodeWithLocation(1, node4, node7);
 
 		assertEquals(2, DAG.findLowestCommonAncestorDAG(root, node6, node3));
 		assertEquals(3, DAG.findLowestCommonAncestorDAG(root, node7, node3));
 		assertEquals(2, DAG.findLowestCommonAncestorDAG(root, node5, node3));
 		assertEquals(4, DAG.findLowestCommonAncestorDAG(root, node7, node4));
 		assertEquals(5, DAG.findLowestCommonAncestorDAG(root, node6, node5));
+		assertEquals(2, DAG.findLowestCommonAncestorDAG(root, node6, node4));
 
+	}
+
+	@Test
+	public void testEmptyDAG() {
+		Node root = new Node(0);
+		assertEquals(0, DAG.findLowestCommonAncestorDAG(root, root, root));
 	}
 
 	@Test
