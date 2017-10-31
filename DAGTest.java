@@ -7,6 +7,58 @@ import org.junit.Test;
 public class DAGTest {
 
 	@Test
+	public void testDAG() {
+
+		// 1
+		// |
+		// 2
+		// | \
+		// 3 5
+		// | |
+		// 4 6
+		// \ /
+		// 7
+
+		Node root = new Node(1);
+		Node node2 = new Node(2);
+		Node node3 = new Node(3);
+		Node node4 = new Node(4);
+		Node node5 = new Node(5);
+		Node node6 = new Node(6);
+		Node node7 = new Node(7);
+
+		root.parentNodes = null;
+		node2.parentNodes = new ArrayList<Node>();
+		node3.parentNodes = new ArrayList<Node>();
+		node4.parentNodes = new ArrayList<Node>();
+		node5.parentNodes = new ArrayList<Node>();
+		node6.parentNodes = new ArrayList<Node>();
+		node7.parentNodes = new ArrayList<Node>();
+
+		node2.parentNodes.add(root);
+		node2.parentNodes.add(node2);
+		node3.parentNodes.add(node3);
+		node4.parentNodes.add(node4);
+		node5.parentNodes.add(node5);
+		node6.parentNodes.add(node6);
+		node7.parentNodes.add(node7);
+
+		DAG.addParentNodesToNode(node3.parentNodes.size(), node2, node3);
+		DAG.addParentNodesToNode(node4.parentNodes.size(), node3, node4);
+		DAG.addParentNodesToNode(node5.parentNodes.size(), node2, node5);
+		DAG.addParentNodesToNode(node6.parentNodes.size(), node5, node6);
+		DAG.addParentNodesToNode(node7.parentNodes.size(), node6, node7);
+		DAG.addParentNodesToNode(1, node4, node7);
+
+		assertEquals(2, DAG.findLowestCommonAncestorDAG(root, node6, node3));
+		assertEquals(3, DAG.findLowestCommonAncestorDAG(root, node7, node3));
+		assertEquals(2, DAG.findLowestCommonAncestorDAG(root, node5, node3));
+		assertEquals(4, DAG.findLowestCommonAncestorDAG(root, node7, node4));
+		assertEquals(5, DAG.findLowestCommonAncestorDAG(root, node6, node5));
+
+	}
+
+	@Test
 	public void testEmptyTree() {
 		DAG emptyTree = new DAG();
 		assertEquals("The lowest common ancestor of an empty tree", -1, emptyTree.LowestCommonAncestorBinaryTree(0, 0));
