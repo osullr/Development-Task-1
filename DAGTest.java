@@ -6,6 +6,8 @@ import org.junit.Test;
 
 public class DAGTest {
 
+	DAG DAG = new DAG();
+
 	@Test
 	public void testDAG() {
 
@@ -62,7 +64,6 @@ public class DAGTest {
 				DAG.findLowestCommonAncestorDAG(root, node6, node5));
 		assertEquals("The lowest common ancestor of these two nodes is", 2,
 				DAG.findLowestCommonAncestorDAG(root, node6, node4));
-
 	}
 
 	@Test
@@ -86,7 +87,8 @@ public class DAGTest {
 		Node node2 = new Node(2);
 		root.parentNodes = null;
 		node2.parentNodes = new ArrayList<Node>();
-		assertEquals("The lowest common ancestor of a DAG with two nodes", 1, DAG.findLowestCommonAncestorDAG(root, root,  node2));
+		assertEquals("The lowest common ancestor of a DAG with two nodes", 1,
+				DAG.findLowestCommonAncestorDAG(root, root, node2));
 	}
 
 	@Test
@@ -165,7 +167,6 @@ public class DAGTest {
 				fifteenNodes.LowestCommonAncestorBinaryTree(8, 10));
 		assertEquals("The lowest common ancestor of a tree with 15 nodes", 3,
 				fifteenNodes.LowestCommonAncestorBinaryTree(7, 13));
-
 	}
 
 	@Test
@@ -184,5 +185,4 @@ public class DAGTest {
 		assertEquals("Testing for a non existent node in the tree", -1,
 				nonExistentNode.LowestCommonAncestorBinaryTree(8, 13));
 	}
-
 }
