@@ -55,7 +55,7 @@ public class DAG {
 		return findLowestCommonAncestorDAG(root, node1, node2);
 	}
 
-	static int findLowestCommonAncestorDAG(Node root2, Node node1, Node node2) {
+	static int findLowestCommonAncestorDAG(Node root, Node node1, Node node2) {
 		if (node1.parentNodes != null && node2.parentNodes != null) {
 			for (int i = 0; i < node2.parentNodes.size(); i++) {
 				for (int j = 0; j < node1.parentNodes.size(); j++) {
@@ -64,9 +64,8 @@ public class DAG {
 					}
 				}
 			}
-		} else {
-			return root2.data;
-		}
+		} else
+			return root.data;
 		return 0;
 
 	}
@@ -90,14 +89,22 @@ public class DAG {
 		}
 
 		path.remove(path.size() - 1);
-
+		
 		return false;
 	}
 
-	public static void addParentNodesToNode(int location, Node node1, Node node2) {
+	public static void addParentNodesToNodeWithLocation(int location, Node node1, Node node2) {
 		for (int i = 0; i < node1.parentNodes.size(); i++) {
 			if (!node2.parentNodes.contains(node1.parentNodes.get(i))) {
 				node2.parentNodes.add(location, node1.parentNodes.get(i));
+			}
+		}
+	}
+	
+	public static void addParentNodesToNode(Node node1, Node node2){
+		for(int i = 0; i < node1.parentNodes.size(); i++){
+			if(!node2.parentNodes.contains(node1.parentNodes.get(i))){
+				node2.parentNodes.add(node1.parentNodes.get(i));
 			}
 		}
 	}
