@@ -92,13 +92,13 @@ public class DAGTest {
 	}
 
 	@Test
-	public void testEmptyTree() {
+	public void testEmptyTreeBinaryTree() {
 		DAG emptyTree = new DAG();
 		assertEquals("The lowest common ancestor of an empty tree", -1, emptyTree.LowestCommonAncestorBinaryTree(0, 0));
 	}
 
 	@Test
-	public void testOneNode() {
+	public void testOneNodeBinaryTree() {
 		DAG oneNode = new DAG();
 		oneNode.root = new Node(1);
 		assertEquals("The lowest common ancestor of a tree with one node", -1,
@@ -106,7 +106,7 @@ public class DAGTest {
 	}
 
 	@Test
-	public void testTwoNodes() {
+	public void testTwoNodesBinaryTree() {
 		DAG twoNodes = new DAG();
 		twoNodes.root = new Node(1);
 		twoNodes.root.left = new Node(2);
@@ -115,7 +115,7 @@ public class DAGTest {
 	}
 
 	@Test
-	public void test15Nodes() {
+	public void test15NodesBinaryTree() {
 		DAG fifteenNodes = new DAG();
 		fifteenNodes.root = new Node(1);
 		fifteenNodes.root.left = new Node(2);
@@ -170,7 +170,7 @@ public class DAGTest {
 	}
 
 	@Test
-	public void testForNonExistentNode() {
+	public void testForNonExistentNodeBinaryTree() {
 		DAG nonExistentNode = new DAG();
 		nonExistentNode.root = new Node(1);
 		nonExistentNode.root.left = new Node(2);
