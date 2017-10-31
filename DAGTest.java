@@ -50,19 +50,43 @@ public class DAGTest {
 		DAG.addParentNodesToNode(node6, node7);
 		DAG.addParentNodesToNodeWithLocation(1, node4, node7);
 
-		assertEquals(2, DAG.findLowestCommonAncestorDAG(root, node6, node3));
-		assertEquals(3, DAG.findLowestCommonAncestorDAG(root, node7, node3));
-		assertEquals(2, DAG.findLowestCommonAncestorDAG(root, node5, node3));
-		assertEquals(4, DAG.findLowestCommonAncestorDAG(root, node7, node4));
-		assertEquals(5, DAG.findLowestCommonAncestorDAG(root, node6, node5));
-		assertEquals(2, DAG.findLowestCommonAncestorDAG(root, node6, node4));
+		assertEquals("The lowest common ancestor of these two nodes is", 2,
+				DAG.findLowestCommonAncestorDAG(root, node6, node3));
+		assertEquals("The lowest common ancestor of these two nodes is", 3,
+				DAG.findLowestCommonAncestorDAG(root, node7, node3));
+		assertEquals("The lowest common ancestor of these two nodes is", 2,
+				DAG.findLowestCommonAncestorDAG(root, node5, node3));
+		assertEquals("The lowest common ancestor of these two nodes is", 4,
+				DAG.findLowestCommonAncestorDAG(root, node7, node4));
+		assertEquals("The lowest common ancestor of these two nodes is", 5,
+				DAG.findLowestCommonAncestorDAG(root, node6, node5));
+		assertEquals("The lowest common ancestor of these two nodes is", 2,
+				DAG.findLowestCommonAncestorDAG(root, node6, node4));
 
 	}
 
 	@Test
 	public void testEmptyDAG() {
 		Node root = new Node(0);
-		assertEquals(0, DAG.findLowestCommonAncestorDAG(root, root, root));
+		assertEquals("The lowest common ancestor of an empty DAG", 0,
+				DAG.findLowestCommonAncestorDAG(root, root, root));
+	}
+
+	@Test
+	public void testOneNodeDAG() {
+		Node root = new Node(1);
+		root.parentNodes = null;
+		assertEquals("The lowest common ancestor of a DAG with one nodes", 1,
+				DAG.findLowestCommonAncestorDAG(root, root, root));
+	}
+
+	@Test
+	public void testTwoNodesDAG() {
+		Node root = new Node(1);
+		Node node2 = new Node(2);
+		root.parentNodes = null;
+		node2.parentNodes = new ArrayList<Node>();
+		assertEquals("The lowest common ancestor of a DAG with two nodes", 1, DAG.LowestCommonAncestorDAG(root, node2));
 	}
 
 	@Test
