@@ -17,8 +17,8 @@ class Node {
 }
 
 public class DAG {
-
 	Node root;
+
 	private List<Integer> path1 = new ArrayList<>();
 	private List<Integer> path2 = new ArrayList<>();
 
@@ -26,7 +26,6 @@ public class DAG {
 		path1.clear();
 		path2.clear();
 		return findLowestCommonAncestorBinaryTree(root, node1, node2);
-
 	}
 
 	private int findLowestCommonAncestorBinaryTree(Node root, int node1, int node2) {
@@ -48,14 +47,13 @@ public class DAG {
 				break;
 		}
 		return path1.get(i - 1);
-
 	}
 
 	int LowestCommonAncestorDAG(Node node1, Node node2) {
 		return findLowestCommonAncestorDAG(root, node1, node2);
 	}
 
-	static int findLowestCommonAncestorDAG(Node root, Node node1, Node node2) {
+	int findLowestCommonAncestorDAG(Node root, Node node1, Node node2) {
 		if (node1.parentNodes != null && node2.parentNodes != null) {
 			for (int i = 0; i < node2.parentNodes.size(); i++) {
 				for (int j = 0; j < node1.parentNodes.size(); j++) {
@@ -67,7 +65,6 @@ public class DAG {
 		} else
 			return root.data;
 		return 0;
-
 	}
 
 	private boolean findPathBinaryTree(Node root, int n, List<Integer> path) {
@@ -89,21 +86,21 @@ public class DAG {
 		}
 
 		path.remove(path.size() - 1);
-		
+
 		return false;
 	}
 
-	public static void addParentNodesToNodeWithLocation(int location, Node node1, Node node2) {
+	public void addParentNodesToNodeWithLocation(int location, Node node1, Node node2) {
 		for (int i = 0; i < node1.parentNodes.size(); i++) {
 			if (!node2.parentNodes.contains(node1.parentNodes.get(i))) {
 				node2.parentNodes.add(location, node1.parentNodes.get(i));
 			}
 		}
 	}
-	
-	public static void addParentNodesToNode(Node node1, Node node2){
-		for(int i = 0; i < node1.parentNodes.size(); i++){
-			if(!node2.parentNodes.contains(node1.parentNodes.get(i))){
+
+	public void addParentNodesToNode(Node node1, Node node2) {
+		for (int i = 0; i < node1.parentNodes.size(); i++) {
+			if (!node2.parentNodes.contains(node1.parentNodes.get(i))) {
 				node2.parentNodes.add(node1.parentNodes.get(i));
 			}
 		}
