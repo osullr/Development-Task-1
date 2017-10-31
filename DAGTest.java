@@ -86,7 +86,7 @@ public class DAGTest {
 		Node node2 = new Node(2);
 		root.parentNodes = null;
 		node2.parentNodes = new ArrayList<Node>();
-		assertEquals("The lowest common ancestor of a DAG with two nodes", 1, DAG.LowestCommonAncestorDAG(root, node2));
+		assertEquals("The lowest common ancestor of a DAG with two nodes", 1, DAG.findLowestCommonAncestorDAG(root, root,  node2));
 	}
 
 	@Test
