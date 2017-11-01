@@ -17,6 +17,7 @@ class Node {
 }
 
 public class DAG {
+
 	Node root;
 
 	private List<Integer> path1 = new ArrayList<>();
@@ -49,12 +50,12 @@ public class DAG {
 		return path1.get(i - 1);
 	}
 
-	int LowestCommonAncestorDAG(Node node1, Node node2) {
-		return findLowestCommonAncestorDAG(root, node1, node2);
+	int LowestCommonAncestorDAG(ArrayList<Node> graph, Node node1, Node node2) {
+		return findLowestCommonAncestorDAG(graph, root, node1, node2);
 	}
 
-	int findLowestCommonAncestorDAG(Node root, Node node1, Node node2) {
-		if (node1.parentNodes != null && node2.parentNodes != null) {
+	int findLowestCommonAncestorDAG(ArrayList<Node> graph, Node root, Node node1, Node node2) {
+		if (node1.parentNodes != null && node2.parentNodes != null || !graphAcyclic(graph)) {
 			for (int i = 0; i < node2.parentNodes.size(); i++) {
 				for (int j = 0; j < node1.parentNodes.size(); j++) {
 					if (node2.parentNodes.get(i) == node1.parentNodes.get(j)) {
@@ -88,6 +89,40 @@ public class DAG {
 		path.remove(path.size() - 1);
 
 		return false;
+	}
+
+	boolean graphAcyclic(ArrayList<Node> graph) {
+		if (graph == null) {
+			return true;
+		}
+		for (int i = 0; i < graph.size(); i++) {
+			boolean notAcyclic = false;
+			ArrayList<Node> checked = new ArrayList<Node>();
+			Node index = graph.get(i);
+			ArrayList<Node> arrList = new ArrayList<Node>();
+			notAcyclic = isGraphAcyclic(graph, arrList, checked, notAcyclic, index);
+			if (notAcyclic) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean isGraphAcyclic(ArrayList<Node> graph, ArrayList<Node> arrList, ArrayList<Node> checked,
+			boolean notAcyclic, Node index) {
+		arrList.add(index);
+		checked.add(index);
+		for (int i = 0; i < index.parentNodes.size(); i++) {
+			Node curNode = (Node) index.parentNodes.get(i);
+			if (!checked.contains(curNode)) {
+				notAcyclic = notAcyclic || isGraphAcyclic(graph, arrList, checked, notAcyclic, curNode);
+			} else if (arrList.contains(curNode)) {
+				notAcyclic = true;
+			}
+			return notAcyclic;
+		}
+		arrList.remove(index);
+		return notAcyclic;
 	}
 
 	public void addParentNodesToNodeWithLocation(int location, Node node1, Node node2) {
