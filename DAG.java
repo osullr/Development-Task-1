@@ -6,7 +6,7 @@ class Node {
 	ArrayList<Node> parentNodes;
 	Node left;
 	Node right;
-
+	
 	Node(int value) {
 		data = value;
 		parentNodes = new ArrayList<Node>();
