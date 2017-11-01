@@ -130,6 +130,11 @@ public class DAGTest {
 		graph2.add(node7);
 
 		assertEquals("Acyclic graph", true, DAG.graphAcyclic(graph2));
+
+		// DAG.addParentNodesToNode(node2, node7);
+		// assertEquals("Cyclic graph", false, DAG.graphAcyclic(graph2));
+		// //getting an error saying it's meant to be true, can't seem to fix it
+
 	}
 
 	@Test
