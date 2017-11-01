@@ -7,6 +7,7 @@ import org.junit.Test;
 public class DAGTest {
 
 	DAG DAG = new DAG();
+	ArrayList<Node> graph = new ArrayList<Node>();
 
 	@Test
 	public void testDAG() {
@@ -53,24 +54,24 @@ public class DAGTest {
 		DAG.addParentNodesToNodeWithLocation(1, node4, node7);
 
 		assertEquals("The lowest common ancestor of these two nodes is", 2,
-				DAG.findLowestCommonAncestorDAG(root, node6, node3));
+				DAG.findLowestCommonAncestorDAG(graph, root, node6, node3));
 		assertEquals("The lowest common ancestor of these two nodes is", 3,
-				DAG.findLowestCommonAncestorDAG(root, node7, node3));
+				DAG.findLowestCommonAncestorDAG(graph, root, node7, node3));
 		assertEquals("The lowest common ancestor of these two nodes is", 2,
-				DAG.findLowestCommonAncestorDAG(root, node5, node3));
+				DAG.findLowestCommonAncestorDAG(graph, root, node5, node3));
 		assertEquals("The lowest common ancestor of these two nodes is", 4,
-				DAG.findLowestCommonAncestorDAG(root, node7, node4));
+				DAG.findLowestCommonAncestorDAG(graph, root, node7, node4));
 		assertEquals("The lowest common ancestor of these two nodes is", 5,
-				DAG.findLowestCommonAncestorDAG(root, node6, node5));
+				DAG.findLowestCommonAncestorDAG(graph, root, node6, node5));
 		assertEquals("The lowest common ancestor of these two nodes is", 2,
-				DAG.findLowestCommonAncestorDAG(root, node6, node4));
+				DAG.findLowestCommonAncestorDAG(graph, root, node6, node4));
 	}
 
 	@Test
 	public void testEmptyDAG() {
 		Node root = new Node(0);
 		assertEquals("The lowest common ancestor of an empty DAG", 0,
-				DAG.findLowestCommonAncestorDAG(root, root, root));
+				DAG.findLowestCommonAncestorDAG(graph, root, root, root));
 	}
 
 	@Test
@@ -78,7 +79,7 @@ public class DAGTest {
 		Node root = new Node(1);
 		root.parentNodes = null;
 		assertEquals("The lowest common ancestor of a DAG with one nodes", 1,
-				DAG.findLowestCommonAncestorDAG(root, root, root));
+				DAG.findLowestCommonAncestorDAG(graph, root, root, root));
 	}
 
 	@Test
@@ -88,7 +89,47 @@ public class DAGTest {
 		root.parentNodes = null;
 		node2.parentNodes = new ArrayList<Node>();
 		assertEquals("The lowest common ancestor of a DAG with two nodes", 1,
-				DAG.findLowestCommonAncestorDAG(root, root, node2));
+				DAG.findLowestCommonAncestorDAG(graph, root, root, node2));
+	}
+
+	@Test
+	public void testGraphAcyclic() {
+		ArrayList<Node> graph = new ArrayList<Node>();
+		assertEquals("Empty graph should be acyclic", true, DAG.graphAcyclic(graph));
+
+		Node root = new Node(1);
+		graph.add(root);
+		assertEquals("One node in graph should be acyclic", true, DAG.graphAcyclic(graph));
+
+		Node node2 = new Node(2);
+		node2.parentNodes = new ArrayList<Node>();
+		graph.add(node2);
+		assertEquals("Two nodes in graph should be acyclic", true, DAG.graphAcyclic(graph));
+
+		ArrayList<Node> graph2 = new ArrayList<Node>();
+
+		Node node3 = new Node(3);
+		Node node4 = new Node(4);
+		Node node5 = new Node(5);
+		Node node6 = new Node(6);
+		Node node7 = new Node(7);
+
+		DAG.addParentNodesToNode(node2, node3);
+		DAG.addParentNodesToNode(node3, node4);
+		DAG.addParentNodesToNode(node2, node5);
+		DAG.addParentNodesToNode(node5, node6);
+		DAG.addParentNodesToNode(node6, node7);
+		DAG.addParentNodesToNodeWithLocation(1, node4, node7);
+
+		graph2.add(root);
+		graph2.add(node2);
+		graph2.add(node3);
+		graph2.add(node4);
+		graph2.add(node5);
+		graph2.add(node6);
+		graph2.add(node7);
+
+		assertEquals("Acyclic graph", true, DAG.graphAcyclic(graph2));
 	}
 
 	@Test
