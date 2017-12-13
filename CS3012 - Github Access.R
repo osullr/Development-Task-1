@@ -11,13 +11,6 @@ myapp <- oauth_app(appname = "Software Engineering",
 github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
 
 gtoken <- config(token = github_token)
-req <- GET("https://api.github.com/users/jtleek/repos", gtoken)
 
-stop_for_status(req)
-
-json1 = content(req)
-
-gitDF = jsonlite::fromJSON(jsonlite::toJSON(json1))
-
-gitDF[gitDF$full_name == "jtleek/datasharing", "created_at"] 
+githubUrl = "https://api.github.com"
 
