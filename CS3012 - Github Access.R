@@ -43,6 +43,9 @@ for(i in 1:length(userIDs)){
   followingDF = jsonlite::fromJSON(jsonlite::toJSON(followingContent))
   followingLogin = followingDF$login
   
+  if(length(followingContent)==0){
+    next
+  }
   
   for(j in 1:length(followingLogin)){
     if(is.element(followingLogin[j], allUsers) == FALSE){
@@ -58,7 +61,18 @@ for(i in 1:length(userIDs)){
       
       numberRepos = followersDF$public_repos
       
-      usersDF[nrow(usersDF)+1,] = c(followingLogin[j], numberFollowing, numberFollowers, numberRepos)
-      }
+      usersDF[nrow(usersDF)+ 1, ] = c(followingLogin[j], numberFollowing, numberFollowers, numberRepos)
+    }
+    
+    if(length(allUsers)>200){
+      break
+    }
+    next
   }
+  
+  if(length(allUsers)>200){
+    break 
+  }
+  
+  next
 }
