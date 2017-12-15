@@ -74,3 +74,17 @@ for(i in 1:length(userIDs)){
   next
 }
 
+
+library(plotly)
+p1 <- plot_ly(data = usersDF, x = ~Following, y = ~Followers,
+              marker = list(size = 10,
+                            color = 'rgba(255, 182, 193, .9)',
+                            line = list(color = 'rgba(152, 0, 0, .8)',
+                                        width = 2))) %>%
+  layout(title = 'Styled Scatter',
+         yaxis = list(zeroline = FALSE),
+         xaxis = list(zeroline = FALSE))
+p1
+Sys.setenv("plotly_username"="osullr")
+Sys.setenv("plotly_api_key"="nhjAs19fqkrSd256kOC9")
+api_create(p1, filename = "Following vs Followers")
