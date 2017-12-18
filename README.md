@@ -1,4 +1,4 @@
-# Development-Task-1
+# Lowest Common Ancestor
 
 The initial LCA solution which can be found in the files LowestCommonAncestor.java and LowestCommonAncestorTest.java uses a binary tree structure.
 
