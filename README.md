@@ -1,4 +1,4 @@
-# Github Access
+# Social Graph and Github Access
 
 Both tasks 5 and 6 are under the file Github Access.R.
 
